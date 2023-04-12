@@ -14,3 +14,9 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 export type AuthenticatedPageProps = {
     session: Session
 }
+
+export type TempUser = {
+    image: string;
+    name: string;
+    email?: string;
+}

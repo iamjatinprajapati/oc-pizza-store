@@ -5,11 +5,13 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { Fragment } from "react"
 import LogOutMenuItem from "./logout-menu-item"
+import { TempUser } from "@/types/base"
 
 const UserAccountDropdown = () => {
-    const session = null, user = null;
-    if (!session) {
-        return <>{`TODO: IMPLEMENT THE COMPONENT`}</>
+    const user: TempUser = {
+        image: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80",
+        name: "Jatin Prajapati",
+        email: "jprajapati@horizontal.com"
     }
     return (
         <>
@@ -23,8 +25,8 @@ const UserAccountDropdown = () => {
                                     src={user?.image ?? ''}
                                     alt={user?.name ?? ''}
                                 /><span className="flex min-w-0 flex-1 flex-col">
-                                    <span className="truncate text-sm font-medium text-gray-900">{session.data!.user.name}</span>
-                                    <span title={session.data!.user.email ? session.data!.user.email : ''} className="truncate text-sm text-gray-500">{session.data!.user.email}</span>
+                                    <span className="truncate text-sm font-medium text-gray-900">{user.name}</span>
+                                    <span title={user.email} className="truncate text-sm text-gray-500">{user.email}</span>
                                 </span>
                             </span>
                             <ChevronUpDownIcon
@@ -71,64 +73,10 @@ const UserAccountDropdown = () => {
                                     </Link>
                                 )}
                             </Menu.Item>
-                            {/* <Menu.Item>
-                                {({ active }) => (
-                                    <Link
-                                        href="#"
-                                        className={clsx(
-                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                            'block px-4 py-2 text-sm'
-                                        )}
-                                    >
-                                        Notifications
-                                    </Link>
-                                )}
-                            </Menu.Item> */}
                         </div>
-                        {/* <div className="py-1">
-                            <Menu.Item>
-                                {({ active }) => (
-                                    <Link
-                                        href="#"
-                                        className={clsx(
-                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                            'block px-4 py-2 text-sm'
-                                        )}
-                                    >
-                                        Get desktop app
-                                    </Link>
-                                )}
-                            </Menu.Item>
-                            <Menu.Item>
-                                {({ active }) => (
-                                    <Link
-                                        href="#"
-                                        className={clsx(
-                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                            'block px-4 py-2 text-sm'
-                                        )}
-                                    >
-                                        Support
-                                    </Link>
-                                )}
-                            </Menu.Item>
-                        </div> */}
+
                         <div className="py-1">
                             <LogOutMenuItem />
-                            {/* <Menu.Item>
-                                {({ active }) => (
-                                    <Link
-                                        href="#"
-                                        onClick={logOut}
-                                        className={clsx(
-                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                            'block px-4 py-2 text-sm'
-                                        )}
-                                    >
-                                        Logout
-                                    </Link>
-                                )}
-                            </Menu.Item> */}
                         </div>
                     </Menu.Items>
                 </Transition>

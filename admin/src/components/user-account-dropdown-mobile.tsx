@@ -3,14 +3,13 @@ import clsx from "clsx";
 import Link from "next/link";
 import { Fragment } from "react";
 import LogOutMenuItem from "./logout-menu-item";
-import { useSession } from "next-auth/react";
+import { TempUser } from "@/types/base";
 
 const UserAccountDropdownMobile = () => {
-    const session = null;
-    if (!session) {
-        return <>{`TODO: IMPLEMENT THE COMPONENT`}</>
+    const user: TempUser = {
+        image: "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80",
+        name: "Jatin Prajapati"
     }
-    const user = session.data.user;
     return (
         <>
             <Menu as="div" className="relative ml-3">

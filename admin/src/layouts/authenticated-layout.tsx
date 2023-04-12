@@ -1,28 +1,33 @@
 import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { Bars3CenterLeftIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Dialog, Menu, Transition } from '@headlessui/react'
+import { Bars3CenterLeftIcon, Bars4Icon, ClockIcon, HomeIcon, UsersIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import {
+    ChevronRightIcon,
+    ChevronUpDownIcon,
+    EllipsisVerticalIcon,
     MagnifyingGlassIcon,
 } from '@heroicons/react/20/solid'
 import clsx from 'clsx'
 import useAddClassName from '@/hooks/use-add-class-name'
 import Link from 'next/link'
 import UserAccountDropdown from '@/components/user-account-dropdown'
-import { useRouter } from 'next/router'
-import PrimaryNavigation from '@/components/primary-navigation'
-import { BasePageProps } from '@/types/base'
 import { primaryNavigation } from '@/library/data/primary-navigation-data'
-import { isCurrentNavItem } from '@/library/helper'
+import { useRouter } from 'next/router'
 import UserAccountDropdownMobile from '@/components/user-account-dropdown-mobile'
+import { useSession } from 'next-auth/react'
+import PrimaryNavigation from '@/components/primary-navigation'
+import { isCurrentNavItem } from '@/library/helper'
+import { BasePageProps } from '@/types/base'
+import Head from 'next/head'
 
 const AuthenticatedLayout = ({ children }: BasePageProps) => {
     useAddClassName('min-h-full');
     const router = useRouter();
-    // const session = useSession();
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
     return (
         <>
+            <Head><title>Pizza store admin - OrderCloud - POC</title></Head>
             <div className="min-h-full">
                 <Transition.Root show={sidebarOpen} as={Fragment}>
                     <Dialog as="div" className="relative z-40 lg:hidden" onClose={setSidebarOpen}>

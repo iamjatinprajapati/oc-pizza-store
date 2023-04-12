@@ -4,11 +4,8 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 const PrimaryNavigation = () => {
-    const session = null
     const router = useRouter()
-    if (!session) {
-        return <>{`TODO: IMPLEMENT THE COMPONENT`}</>
-    }
+
     let navigation = primaryNavigation;
 
     return (
