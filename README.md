@@ -36,3 +36,58 @@ Steps to setup the OrderCloud authentication system.
 }`
 
 6. asd
+
+`{
+  "Active": true,
+  "Username": "buyer1",
+  "Password": "Pa$$word12345",
+  "FirstName": "Buyer",
+  "LastName": "User",
+  "Email": "buyer@email.com",
+  "TermsAccepted": "2023-04-13"
+}`
+
+
+7. Admin security profile
+
+`{
+  "ID": "ADMIN_PROFILE",
+  "Name": "Admin User Profile",
+  "Roles": [
+    "MeAdmin",
+    "PasswordReset",
+    "BuyerReader",
+    "OrderAdmin",
+    "CatalogAdmin",
+    "ProductAdmin",
+    "ProductAssignmentAdmin",
+    "PriceScheduleAdmin",
+    "ShipmentAdmin"
+  ]
+}`
+
+8. Buyer security profile
+
+`{
+  "ID": "BUYER_PROFILE",
+  "Name": "Buyer User Profile",
+  "Roles": [
+    "MeAdmin",
+    "PasswordReset",
+    "Shopper"
+  ]
+}`
+
+9. Assign admin user profile to seller organization
+
+`{
+  "SecurityProfileID": "ADMIN_PROFILE"
+}`
+
+10. Assign buyer user profile to buyer organization
+
+`{
+  "SecurityProfileID": "BUYER_PROFILE",
+  "BuyerID": "BUYER_ORGANIZATION"
+}`
+
