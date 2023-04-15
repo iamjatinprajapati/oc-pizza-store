@@ -4,8 +4,18 @@ import Link from "next/link";
 import { Fragment } from "react";
 import LogOutMenuItem from "./logout-menu-item";
 import { TempUser } from "@/types/global";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 const UserAccountDropdownMobile = () => {
+  const session = useSession();
+  let meUser = null;
+  if (session) {
+    meUser = session.data?.user.me;
+  }
+  if (!meUser) {
+    return <></>;
+  }
   const user: TempUser = {
     image:
       "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80",
@@ -17,10 +27,12 @@ const UserAccountDropdownMobile = () => {
         <div>
           <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
             <span className="sr-only">Open user menu</span>
-            <img
+            <Image
               className="h-8 w-8 rounded-full shadow-md"
-              src={user.image ?? ""}
-              alt={user.name ?? ""}
+              src={`https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80`}
+              alt={meUser.FirstName ?? ""}
+              height="40"
+              width="40"
             />
           </Menu.Button>
         </div>
