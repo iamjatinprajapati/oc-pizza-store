@@ -1,18 +1,35 @@
 import AuthenticatedLayout from "@/layouts/authenticated-layout";
+import appConfiguration from "@/library/configuration";
 import "@/styles/globals.css";
 import { NextPageWithLayout } from "@/types/global";
+import { Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
+import { Configuration } from "ordercloud-javascript-sdk";
 import { ReactElement } from "react";
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
+  session: Session;
 };
 
 const getDefaultLayout = (page: ReactElement) => (
   <AuthenticatedLayout>{page}</AuthenticatedLayout>
 );
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
+export default function App({
+  Component,
+  session,
+  pageProps,
+}: AppPropsWithLayout) {
+  Configuration.Set({
+    baseApiUrl: appConfiguration.baseApiHost,
+    timeoutInMilliseconds: 20 * 1000,
+  });
   const getLayout = Component.getLayout ?? getDefaultLayout;
-  return getLayout(<Component {...pageProps} />);
+  return (
+    <SessionProvider session={session}>
+      {getLayout(<Component {...pageProps} />)}
+    </SessionProvider>
+  );
 }
