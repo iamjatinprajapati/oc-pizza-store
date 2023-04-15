@@ -1,10 +1,15 @@
-import { BasePageProps } from "@/types/base";
-
+import { BasePageProps } from "@/types/global";
+import Head from "next/head";
 
 const GuestLayout = ({ children }: BasePageProps) => {
-    return (
-        <>{children}</>
-    )
-}
+  return (
+    <>
+      <Head>
+        <title>Pizza store admin - OrderCloud - POC</title>
+      </Head>
+      {children}
+    </>
+  );
+};
 
 export default GuestLayout;

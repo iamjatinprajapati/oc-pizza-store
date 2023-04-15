@@ -1,6 +1,23 @@
-import { Bars4Icon, ClockIcon, HomeIcon, UsersIcon } from "@heroicons/react/24/outline";
+import { IRouteItem, RouteItem } from "@/types/global";
+import { HomeIcon, UsersIcon } from "@heroicons/react/24/outline";
+import { ApplicationRoutes } from "../constants";
 
-export const primaryNavigation = [
-    { name: 'Dashboard', href: '/manage', icon: HomeIcon, current: true, visibleTo: 'super_admin' },
-    { name: 'Products', href: '/manage/products', icon: Bars4Icon, current: false, visibleTo: 'super_admin' },
-]
+class Routes {
+  private _routes: Array<IRouteItem> = [
+    new RouteItem(
+      "Dashboard",
+      ApplicationRoutes.dashboard,
+      ["Seller"],
+      HomeIcon
+    ),
+    new RouteItem("Buyers", ApplicationRoutes.buyers, ["Seller"], UsersIcon),
+  ];
+
+  get routes() {
+    return this._routes;
+  }
+}
+
+const primaryNavigation = new Routes();
+
+export default primaryNavigation;
