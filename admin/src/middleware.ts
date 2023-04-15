@@ -5,25 +5,24 @@ import {
   NextResponse,
 } from "next/server";
 import { Configuration } from "ordercloud-javascript-sdk";
+import withAuthorization from "./middlewares/withOCAuthorization";
 
 const middleware: NextMiddleware = (
   request: NextRequest,
   event: NextFetchEvent
 ) => {
   //Setup the order cloud configuration
-  Configuration.Set({
-    baseApiUrl: process.env.BASE_API_HOST,
-    timeoutInMilliseconds: 20 * 1000,
-  });
-  console.log("request path");
-  console.log(request.nextUrl.pathname);
+  // Configuration.Set({
+  //   baseApiUrl: process.env.BASE_API_HOST,
+  //   timeoutInMilliseconds: 20 * 1000,
+  // });
   if (request.nextUrl.pathname === "/") {
     return NextResponse.redirect(new URL("/admin/dashboard", request.url));
   }
   return NextResponse.next();
 };
 
-export default middleware;
+export default withAuthorization(middleware, ["/admin"]);
 
 export const config = {
   matcher: [
