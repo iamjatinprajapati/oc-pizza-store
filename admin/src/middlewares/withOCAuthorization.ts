@@ -12,7 +12,6 @@ const withAuthorization = (
 ) => {
   return async (request: NextRequest, next: NextFetchEvent) => {
     const pathname = request.nextUrl.pathname;
-    console.log(pathname);
     if (requireAuth.some((path) => pathname.startsWith(path))) {
       //Get next-auth token
       const token = await getToken({

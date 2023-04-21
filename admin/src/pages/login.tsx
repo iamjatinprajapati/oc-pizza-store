@@ -1,13 +1,19 @@
 import GuestLayout from "@/layouts/guest";
+import { ApplicationRoutes } from "@/library/constants";
 import { NextPageWithLayout } from "@/types/global";
-import { signIn } from "next-auth/react";
+import { HttpStatusCode } from "axios";
+import { GetServerSidePropsContext } from "next";
+import { getToken } from "next-auth/jwt";
+import { getSession, signIn, useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { Tokens } from "ordercloud-javascript-sdk";
 import { ReactElement, useRef, useState } from "react";
 
 const LoginPage: NextPageWithLayout = () => {
   const router = useRouter();
+  const session = useSession();
   const { error } = router.query;
   const [loading, setLoading] = useState(false);
   const [showError, setShowError] = useState(
@@ -21,12 +27,15 @@ const LoginPage: NextPageWithLayout = () => {
     setShowError(false);
     if (usernameInputRef.current && passwordInputRef.current) {
       try {
-        await signIn("credentials", {
-          redirect: true,
+        const response = await signIn("credentials", {
+          redirect: false,
           username: usernameInputRef.current.value,
           password: passwordInputRef.current.value,
           callbackUrl: "/admin/dashboard",
         });
+        //Set the OrderCloud access token for client side API call if required from any component
+        Tokens.SetAccessToken(session.data?.user.access_token as string);
+        router.push(ApplicationRoutes.dashboard);
       } catch (error) {
         setLoading(false);
         setShowError(true);
@@ -153,3 +162,20 @@ const LoginPage: NextPageWithLayout = () => {
 LoginPage.getLayout = (page: ReactElement) => <GuestLayout>{page}</GuestLayout>;
 
 export default LoginPage;
+
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const session = await getSession(context);
+  if (session && session.user.me) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: ApplicationRoutes.dashboard,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};
