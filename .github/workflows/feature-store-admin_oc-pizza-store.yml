@@ -27,12 +27,15 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+      
+      - name: Zip artifact for deployment
+        run: zip release.zip ./admin -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: ./admin
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -46,6 +49,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-app
+      
+      - name: unzip artifact for deployment
+        run: unzip release.zip
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -54,4 +60,4 @@ jobs:
           app-name: 'oc-pizza-store'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_50B9A7A78BEF4B669ABA09ACA2B41192 }}
-          package: ./admin
+          package: .
