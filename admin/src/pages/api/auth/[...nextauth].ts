@@ -14,7 +14,6 @@ import {
 const authOptions: NextAuthOptions = {
   providers: [
     Credentials({
-      name: "Credentials",
       credentials: {
         username: { label: "Username", type: "text", placeholder: "Username" },
         password: {

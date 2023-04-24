@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   Bars3CenterLeftIcon,
@@ -26,11 +26,22 @@ import { isCurrentNavItem } from "@/library/helper";
 import { BasePageProps, IRouteItem } from "@/types/global";
 import Head from "next/head";
 import primaryNavigation from "@/library/data/primary-navigation-data";
+import { Tokens } from "ordercloud-javascript-sdk";
 
 const AuthenticatedLayout = ({ children }: BasePageProps) => {
   useAddClassName("min-h-full");
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const session = useSession();
+
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      console.log("setting the oc token for client side use");
+      //Set the OrderCloud access token for client side API call if required from any component
+      Tokens.SetAccessToken(session.data?.user.access_token as string);
+    }
+  }, [session]);
 
   return (
     <>

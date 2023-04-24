@@ -1,14 +1,18 @@
+import { ApplicationRoutes } from "@/library/constants";
 import { Menu } from "@headlessui/react";
 import clsx from "clsx";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Tokens } from "ordercloud-javascript-sdk";
 
 const LogOutMenuItem = () => {
   const router = useRouter();
   const logOut = async (e: React.MouseEvent) => {
     e.preventDefault();
-    await signOut({ redirect: true, callbackUrl: "/login" });
+    const response = await signOut({ redirect: false, callbackUrl: "/login" });
+    Tokens.RemoveAccessToken();
+    router.push(ApplicationRoutes.login);
   };
   return (
     <>
