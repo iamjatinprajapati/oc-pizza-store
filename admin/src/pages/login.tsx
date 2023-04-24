@@ -28,14 +28,11 @@ const LoginPage: NextPageWithLayout = () => {
     if (usernameInputRef.current && passwordInputRef.current) {
       try {
         const response = await signIn("credentials", {
-          redirect: false,
+          redirect: true,
           username: usernameInputRef.current.value,
           password: passwordInputRef.current.value,
           callbackUrl: "/admin/dashboard",
         });
-        //Set the OrderCloud access token for client side API call if required from any component
-        Tokens.SetAccessToken(session.data?.user.access_token as string);
-        router.push(ApplicationRoutes.dashboard);
       } catch (error) {
         setLoading(false);
         setShowError(true);

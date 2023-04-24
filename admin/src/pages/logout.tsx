@@ -1,4 +1,5 @@
 import { GetServerSidePropsContext } from "next";
+import { signOut } from "next-auth/react";
 import * as OrderCloud from "ordercloud-javascript-sdk";
 
 const LogoutPage = () => {
@@ -8,6 +9,7 @@ const LogoutPage = () => {
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
+  await signOut();
   OrderCloud.Tokens.RemoveAccessToken();
   return {
     redirect: {
