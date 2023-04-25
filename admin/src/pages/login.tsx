@@ -8,7 +8,7 @@ import { getSession, signIn, useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { Tokens } from "ordercloud-javascript-sdk";
+import { Me, MeUser, OrderCloudError, Tokens } from "ordercloud-javascript-sdk";
 import { ReactElement, useRef, useState } from "react";
 
 const LoginPage: NextPageWithLayout = () => {
@@ -163,15 +163,22 @@ export default LoginPage;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const session = await getSession(context);
-  if (session && session.user.me) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: ApplicationRoutes.dashboard,
-      },
-    };
-  }
+  // try {
+  //   const me = await Me.Get<MeUser>();
+  //   return {
+  //     redirect: {
+  //       permanent: false,
+  //       destination: ApplicationRoutes.dashboard,
+  //     },
+  //   };
+  // } catch (error) {
+  //   const ocError = error as OrderCloudError;
+  //   if (ocError.status === 401) {
+  //     return {
+  //       props: {},
+  //     };
+  //   }
+  // }
   return {
     props: {},
   };
