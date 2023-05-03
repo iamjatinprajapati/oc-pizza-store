@@ -1,4 +1,5 @@
 import { ApplicationRoutes } from "@/library/constants";
+import { authorizedOperation } from "@/library/helper";
 import { NextPageWithLayout } from "@/types/global";
 import { XCircleIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
@@ -17,46 +18,31 @@ const IndexPage: NextPageWithLayout<PageProps> = ({ buyer }) => {
     router.push(ApplicationRoutes.buyers);
   };
   return (
-    <div
-      className={clsx(
-        "px-4 sm:px-8 py-4",
-        buyer.Active ? "bg-green-200" : "bg-red-700 text-white"
-      )}
-    >
+    <div className={clsx("px-4 sm:px-8 py-4 border-b border-gray-200")}>
       <div className="lg:flex lg:items-center lg:justify-between">
         <div className="min-w-0 flex-1">
           <h2
             className={clsx(
-              "text-2xl font-bold leading-7 sm:truncate sm:text-3xl sm:tracking-tight",
-              buyer.Active ? "text-gray-900" : "text-white"
+              "text-2xl font-bold leading-7 sm:truncate sm:text-3xl sm:tracking-tight"
             )}
           >
             {buyer.Name}
           </h2>
           <div className="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
             <div
-              className={clsx(
-                "mt-2 flex items-center text-sm text-gray-500",
-                buyer.Active ? "text-gray-500" : "text-white"
-              )}
+              className={clsx("mt-2 flex items-center text-sm text-gray-500")}
             >
               <span className="font-semibold">ID:</span>&nbsp;
               {buyer.ID}
             </div>
             <div
-              className={clsx(
-                "mt-2 flex items-center text-sm text-gray-500",
-                buyer.Active ? "text-gray-500" : "text-white"
-              )}
+              className={clsx("mt-2 flex items-center text-sm text-gray-500")}
             >
               <span className="font-semibold">Default catalog:</span>&nbsp;
               {buyer.DefaultCatalogID}
             </div>
             <div
-              className={clsx(
-                "mt-2 flex items-center text-sm text-gray-500",
-                buyer.Active ? "text-gray-500" : "text-white"
-              )}
+              className={clsx("mt-2 flex items-center text-sm text-gray-500")}
             >
               <span className="font-semibold">Created:</span>&nbsp;
               {buyer.DateCreated}
@@ -70,9 +56,7 @@ const IndexPage: NextPageWithLayout<PageProps> = ({ buyer }) => {
               type="button"
               className={clsx(
                 "inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold  shadow-sm ",
-                buyer.Active
-                  ? "bg-red-700 hover:bg-red-800 text-white"
-                  : "bg-red-900 hover:bg-red-950 text-white"
+                "bg-red-700 hover:bg-red-800 text-white"
               )}
             >
               <XCircleIcon
@@ -90,9 +74,23 @@ const IndexPage: NextPageWithLayout<PageProps> = ({ buyer }) => {
 
 export default IndexPage;
 
+type returnType = {
+  props: {
+    buyer: Buyer;
+  };
+};
+
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
+  return await authorizedOperation<returnType>(context, async () => {
+    const { id } = context.query;
+    return {
+      props: {
+        buyer: await Buyers.Get(id as string),
+      },
+    };
+  });
   const { id } = context.query;
   const buyer = await Buyers.Get(id as string);
   // console.log(buyer);

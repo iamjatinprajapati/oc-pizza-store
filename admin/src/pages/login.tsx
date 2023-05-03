@@ -28,11 +28,12 @@ const LoginPage: NextPageWithLayout = () => {
     if (usernameInputRef.current && passwordInputRef.current) {
       try {
         const response = await signIn("credentials", {
-          redirect: true,
+          redirect: false,
           username: usernameInputRef.current.value,
           password: passwordInputRef.current.value,
-          callbackUrl: "/admin/dashboard",
+          callbackUrl: ApplicationRoutes.dashboard,
         });
+        router.push(ApplicationRoutes.dashboard);
       } catch (error) {
         setLoading(false);
         setShowError(true);

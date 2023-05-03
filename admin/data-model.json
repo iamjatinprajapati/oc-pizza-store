@@ -1,0 +1,141 @@
+{
+    "Name": "Pizza of your choice",
+    "ID": "GomlYaRPGAKuRd5Z",
+    "Type": "Marketplace",
+    "Sellers": [
+      {
+        "ID": "ADMIN",
+        "CompanyID": "GomlYaRPGAKuRd5Z",
+        "Username": "admin01",
+        "Password": null,
+        "FirstName": "Admin",
+        "LastName": "User",
+        "Email": "admin@pizza-of-your-choice.com",
+        "Phone": null,
+        "TermsAccepted": "2023-04-13T00:00:00+00:00",
+        "Active": true,
+        "xp": null,
+        "AvailableRoles": [
+          "BuyerAdmin",
+          "BuyerReader",
+          "CatalogAdmin",
+          "MeAdmin",
+          "OrderAdmin",
+          "PasswordReset",
+          "PriceScheduleAdmin",
+          "ProductAdmin",
+          "ProductAssignmentAdmin",
+          "ShipmentAdmin"
+        ],
+        "Locale": null,
+        "DateCreated": "2023-04-13T09:48:19.91+00:00",
+        "PasswordLastSetDate": "2023-04-13T09:48:19.953+00:00"
+      }
+    ],
+    "Buyers": [
+      {
+        "ID": "DEFAULT_BUYERS",
+        "Name": "Default buyers",
+        "Type": "Buyer organization",
+        "Catalogs": [
+          {
+            "ID": "BUYER_ORGANIZATION",
+            "OwnerID": "GomlYaRPGAKuRd5Z",
+            "Name": "Default buyer organization",
+            "Description": "Default catalog for Default buyer organization",
+            "Active": true,
+            "CategoryCount": 0,
+            "xp": null,
+            "Categories": [
+              {
+                "ID": "CLASSIC_CHOICE_PIZZA",
+                "Name": "Classic Choice Pizza",
+                "Description": null,
+                "ListOrder": 1,
+                "Active": true,
+                "ParentID": null,
+                "ChildCount": 0,
+                "xp": null
+              }
+            ]
+          }
+        ],
+        "Products": [
+            {
+                "OwnerID": "GomlYaRPGAKuRd5Z",
+                "DefaultPriceScheduleID": null,
+                "AutoForward": false,
+                "ID": "ObTcz7ZObkS9dMJQFnLo_A",
+                "ParentID": null,
+                "IsParent": false,
+                "Name": "Double Cheese Margherita",
+                "Description": "Loaded with extra Mozzarella cheese",
+                "QuantityMultiplier": 1,
+                "ShipWeight": 0,
+                "ShipHeight": 0,
+                "ShipWidth": 0,
+                "ShipLength": 0,
+                "Active": true,
+                "SpecCount": 0,
+                "VariantCount": 0,
+                "ShipFromAddressID": null,
+                "Inventory": null,
+                "DefaultSupplierID": null,
+                "AllSuppliersCanSell": false,
+                "Returnable": false,
+                "xp": null
+            },
+            {
+                "OwnerID": "GomlYaRPGAKuRd5Z",
+                "DefaultPriceScheduleID": "MARGHERITA_PRICE",
+                "AutoForward": false,
+                "ID": "Otwk6Y51Pka3DFaL34ow9Q",
+                "ParentID": null,
+                "IsParent": false,
+                "Name": "margherita",
+                "Description": "Loaded with Mozzarella cheese",
+                "QuantityMultiplier": 1,
+                "ShipWeight": null,
+                "ShipHeight": null,
+                "ShipWidth": null,
+                "ShipLength": null,
+                "Active": true,
+                "SpecCount": 0,
+                "VariantCount": 0,
+                "ShipFromAddressID": null,
+                "Inventory": null,
+                "DefaultSupplierID": null,
+                "AllSuppliersCanSell": false,
+                "Returnable": false,
+                "xp": null
+            }
+        ],
+        "Price Schedules": [
+            {
+                "OwnerID": "GomlYaRPGAKuRd5Z",
+                "ID": "MARGHERITA_PRICE",
+                "Name": "Margherita price",
+                "ApplyTax": false,
+                "ApplyShipping": false,
+                "MinQuantity": 1,
+                "MaxQuantity": null,
+                "UseCumulativeQuantity": false,
+                "RestrictedQuantity": false,
+                "PriceBreaks": [
+                    {
+                        "Quantity": 1,
+                        "Price": 119,
+                        "SalePrice": 100,
+                        "SubscriptionPrice": null
+                    }
+                ],
+                "Currency": "INR",
+                "SaleStart": null,
+                "SaleEnd": null,
+                "IsOnSale": true,
+                "xp": null
+            }
+        ]
+      }
+    ]
+  }
