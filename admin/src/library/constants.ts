@@ -2,6 +2,7 @@ class ApplicationRoutes {
   public static dashboard: string = "/admin/dashboard";
   public static buyers: string = "/admin/buyers";
   public static catalogs: string = "/admin/catalogs";
+  public static createCatalog: string = "/admin/catalogs/create";
   public static products: string = "/admin/products";
   public static createBuyer: string = "/admin/buyers/create";
   public static users: string = "/admin/buyers/[buyer]/users";

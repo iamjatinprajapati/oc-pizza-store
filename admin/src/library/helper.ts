@@ -22,7 +22,7 @@ export const authorizedOperation = async <T>(
   let redirectDestination = "/500";
   try {
     /**
-     * Get the valid authenticationi token. If not fund, redirect to the login page
+     * Get the valid authentication token. If not fund, redirect to the login page
      * This is the server side check of the valid authentication token.
      *
      */
@@ -38,7 +38,6 @@ export const authorizedOperation = async <T>(
     return await operation();
   } catch (error) {
     const orderCloudError = error as OrderCloudError;
-    console.log(orderCloudError.status);
     if (orderCloudError.status === HttpStatusCode.Unauthorized) {
       redirectDestination = ApplicationRoutes.login;
     }

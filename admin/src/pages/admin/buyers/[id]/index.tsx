@@ -91,12 +91,4 @@ export const getServerSideProps = async (
       },
     };
   });
-  const { id } = context.query;
-  const buyer = await Buyers.Get(id as string);
-  // console.log(buyer);
-  return {
-    props: {
-      buyer: buyer,
-    },
-  };
 };

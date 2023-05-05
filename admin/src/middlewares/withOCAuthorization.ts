@@ -12,14 +12,12 @@ const withAuthorization = (
   requireAuth: Array<string> = []
 ) => {
   return async (request: NextRequest, next: NextFetchEvent) => {
-    console.log("in middleware");
     const pathname = request.nextUrl.pathname;
     if (requireAuth.some((path) => pathname.startsWith(path))) {
       //Get next-auth token
       const token = await getToken({
         req: request,
       });
-      console.log(token);
       if (token && token.me) {
         /**
          * Check if the valid token is present or not. In case of application restart, the in memory token vanishes.
