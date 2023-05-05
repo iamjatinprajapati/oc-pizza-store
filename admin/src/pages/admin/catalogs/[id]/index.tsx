@@ -14,13 +14,10 @@ import {
   Products,
 } from "ordercloud-javascript-sdk";
 import { Tab } from "@headlessui/react";
-import ProductDetail from "@/components/products/product-detail";
-import RelatedProducts from "@/components/products/related-products";
-import ProductPricing from "@/components/products/product-pricing";
-import ProductVariants from "@/components/products/product-variants";
+import CategoriesList from "@/components/catalogs/categories/categories-list";
 const tabs = [
-  { name: "Product", href: "#", current: true },
   { name: "Categories", href: "#", current: false },
+  { name: "Product", href: "#", current: true },
 ];
 type PageProps = {
   catalog: Catalog;
@@ -124,11 +121,11 @@ const CatalogPage: NextPageWithLayout<PageProps> = ({ catalog }) => {
             {tabs.map((tab: any, index: number) => (
               <Tab.Panel key={index}>
                 <div className="px-4 sm:px-6 py-4">
+                  {tab.name.toLowerCase() === "categories" && (
+                    <CategoriesList catalog={catalog} />
+                  )}
                   {tab.name.toLowerCase() === "product" && (
                     <span>Show associated products</span>
-                  )}
-                  {tab.name.toLowerCase() === "categories" && (
-                    <span>Show assoicated categories</span>
                   )}
                 </div>
               </Tab.Panel>
