@@ -7,6 +7,7 @@ import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { Configuration } from "ordercloud-javascript-sdk";
 import { ReactElement } from "react";
+import NextNProgress from "nextjs-progressbar";
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -29,7 +30,12 @@ export default function App({
   const getLayout = Component.getLayout ?? getDefaultLayout;
   return (
     <SessionProvider session={session}>
-      {getLayout(<Component {...pageProps} />)}
+      {getLayout(
+        <>
+          <NextNProgress />
+          <Component {...pageProps} />
+        </>
+      )}
     </SessionProvider>
   );
 }

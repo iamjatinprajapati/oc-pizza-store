@@ -4,7 +4,6 @@ import {
   NextRequest,
   NextResponse,
 } from "next/server";
-import { Configuration } from "ordercloud-javascript-sdk";
 import withAuthorization from "./middlewares/withOCAuthorization";
 
 const middleware: NextMiddleware = (

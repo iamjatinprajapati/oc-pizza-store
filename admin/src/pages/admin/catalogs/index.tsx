@@ -4,22 +4,21 @@ import { authorizedOperation } from "@/library/helper";
 import { NextPageWithLayout } from "@/types/global";
 import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
-import * as OrderCloud from "ordercloud-javascript-sdk";
-import { Buyer, Buyers, ListPage } from "ordercloud-javascript-sdk";
-type BuyersIndexProps = {
-  buyers: ListPage<Buyer>;
+import { Catalog, Catalogs, ListPage } from "ordercloud-javascript-sdk";
+type PageProps = {
+  catalogs: ListPage<Catalog>;
 };
-const IndexPage: NextPageWithLayout<BuyersIndexProps> = ({ buyers }) => {
-  useSetPageHeading("Buyers");
+const CatalogsPage: NextPageWithLayout<PageProps> = ({ catalogs }) => {
+  useSetPageHeading("Catalogs");
   return (
     <>
       <div className="flex flex-row space-x-3 justify-end px-8 py-4">
         <Link
-          href={ApplicationRoutes.createBuyer}
+          href={ApplicationRoutes.createCatalog}
           type="button"
           className="rounded-md bg-indigo-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
         >
-          Create new buyer
+          Create new catalog
         </Link>
       </div>
       <div className="hidden sm:block">
@@ -43,7 +42,13 @@ const IndexPage: NextPageWithLayout<BuyersIndexProps> = ({ buyers }) => {
                   className="border-b border-gray-200 bg-gray-50 px-6 py-3 text-left text-sm font-semibold text-gray-900"
                   scope="col"
                 >
-                  Default catalog ID
+                  Description
+                </th>
+                <th
+                  className="border-b border-gray-200 bg-gray-50 px-6 py-3 text-left text-sm font-semibold text-gray-900"
+                  scope="col"
+                >
+                  Category count
                 </th>
                 <th
                   className="border-b border-gray-200 bg-gray-50 px-6 py-3 text-left text-sm font-semibold text-gray-900"
@@ -51,31 +56,32 @@ const IndexPage: NextPageWithLayout<BuyersIndexProps> = ({ buyers }) => {
                 >
                   Active
                 </th>
-                <th
-                  className="border-b border-gray-200 bg-gray-50 px-6 py-3 text-left text-sm font-semibold text-gray-900"
-                  scope="col"
-                >
-                  Created
-                </th>
+                {/* <th
+          className="border-b border-gray-200 bg-gray-50 px-6 py-3 text-left text-sm font-semibold text-gray-900"
+          scope="col"
+        >
+          Created
+        </th> */}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 bg-white">
-              {buyers.Items?.map((buyer: Buyer) => (
-                <tr key={buyer.ID}>
+              {catalogs.Items?.map((catalog: Catalog) => (
+                <tr key={catalog.ID}>
                   <td className="px-6 py-3">
                     <Link
-                      href={`${ApplicationRoutes.buyers}/${buyer.ID}`}
+                      href={`${ApplicationRoutes.catalogs}/${catalog.ID}`}
                       className="text-indigo-500 hover:underline hover:text-indigo-700"
                     >
-                      {buyer.ID}
+                      {catalog.ID}
                     </Link>
                   </td>
-                  <td className="px-6 py-3">{buyer.Name}</td>
-                  <td className="px-6 py-3">{buyer.DefaultCatalogID}</td>
+                  <td className="px-6 py-3">{catalog.Name}</td>
+                  <td className="px-6 py-3">{catalog.Description}</td>
+                  <td className="px-6 py-3">{catalog.CategoryCount}</td>
                   <td className="px-6 py-3">
-                    {buyer.Active ? "Active" : "In-active"}
+                    {catalog.Active ? "Active" : "In-active"}
                   </td>
-                  <td className="px-6 py-3">{buyer.DateCreated}</td>
+                  {/* <td className="px-6 py-3">{product}</td> */}
                 </tr>
               ))}
             </tbody>
@@ -86,19 +92,22 @@ const IndexPage: NextPageWithLayout<BuyersIndexProps> = ({ buyers }) => {
   );
 };
 
-export default IndexPage;
+export default CatalogsPage;
+
 type returnType = {
   props: {
-    buyers: ListPage<Buyer>;
+    catalogs: ListPage<Catalog>;
   };
 };
+
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   return await authorizedOperation<returnType>(context, async () => {
+    const catalogs = await Catalogs.List();
     return {
       props: {
-        buyers: await Buyers.List(),
+        catalogs: catalogs,
       },
     };
   });

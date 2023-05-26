@@ -37,7 +37,6 @@ const AuthenticatedLayout = ({ children }: BasePageProps) => {
 
   useEffect(() => {
     if (session.status === "authenticated") {
-      console.log("setting the oc token for client side use");
       //Set the OrderCloud access token for client side API call if required from any component
       Tokens.SetAccessToken(session.data?.user.access_token as string);
     }
@@ -48,7 +47,7 @@ const AuthenticatedLayout = ({ children }: BasePageProps) => {
       <Head>
         <title>Pizza store admin - OrderCloud - POC</title>
       </Head>
-      <div className="min-h-full">
+      <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -202,7 +201,10 @@ const AuthenticatedLayout = ({ children }: BasePageProps) => {
           </div>
           <main className="flex-1">
             {/* Page title & actions */}
-            <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6">
+            <div
+              id="headingSection"
+              className="hidden border-b border-gray-200 px-4 py-4 sm:items-center sm:justify-between sm:px-6"
+            >
               <div className="min-w-0 flex-1">
                 <h1
                   id="pageHeading"
